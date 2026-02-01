@@ -1,1 +1,28 @@
-
+{
+    "name": "Java Spring Boot",
+    "image": "mcr.microsoft.com/devcontainers/java:1-17-bullseye",
+    "features": {
+        "ghcr.io/devcontainers/features/java:1": {
+            "version": "17",
+            "mavenVersion": "3.8"
+        },
+        "ghcr.io/devcontainers/features/mysql:1": {
+            "version": "8.0"
+        }
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "vscjava.vscode-java-pack",
+                "vmware.vscode-spring-boot",
+                "vscjava.vscode-maven",
+                "mtxr.sqltools",
+                "mtxr.sqltools-driver-mysql",
+                "rangav.vscode-thunder-client"
+            ]
+        }
+    },
+    "forwardPorts": [8080, 3306],
+    "postCreateCommand": "sudo service mysql start && mysql -e 'CREATE DATABASE IF NOT EXISTS ev_sales;'",
+    "postStartCommand": "echo '🚗 新能源汽车销售系统环境准备就绪！'"
+}
