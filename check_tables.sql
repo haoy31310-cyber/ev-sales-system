@@ -1,0 +1,4 @@
+SHOW TABLES;
+SELECT * FROM car LIMIT 3;
+SELECT * FROM promotion LIMIT 3;
+SELECT * FROM test_drive LIMIT 3;

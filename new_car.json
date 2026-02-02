@@ -1,0 +1,8 @@
+{
+  "name": "测试车型",
+  "brand": "测试品牌",
+  "rangeKm": 500,
+  "batteryType": "三元锂电池",
+  "price": 199999.99,
+  "stock": 10
+}

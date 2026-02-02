@@ -1,23 +1,25 @@
 server:
   port: 8080
+
 spring:
   datasource:
-    url: jdbc:h2:mem:evsales;DB_CLOSE_DELAY=-1;MODE=MySQL
-    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:ev_sales
     username: sa
     password: 
+    driver-class-name: org.h2.Driver
   h2:
     console:
       enabled: true
       path: /h2-console
+
   sql:
     init:
-      mode: always
+      mode: always  # 总是初始化SQL
       schema-locations: classpath:schema.sql
       data-locations: classpath:data.sql
+
 mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.evsales.entity
   configuration:
     map-underscore-to-camel-case: true
-logging:
-  level:
-    com.evsales: DEBUG

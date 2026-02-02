@@ -1,3 +1,12 @@
+#!/bin/bash
+echo "🔧 修复POM.xml"
+echo "============"
+
+echo "1. 备份损坏的pom.xml..."
+cp pom.xml pom.xml.backup.$(date +%s) 2>/dev/null || true
+
+echo "2. 创建正确的pom.xml..."
+cat > pom.xml << 'POM'
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -48,10 +57,24 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <mainClass>com.evsales.Application</mainClass>
-                </configuration>
             </plugin>
         </plugins>
     </build>
 </project>
+POM
+
+echo "3. 验证XML格式..."
+if command -v xmllint &> /dev/null; then
+    xmllint --noout pom.xml && echo "✅ XML格式正确" || echo "⚠️ XML检查失败"
+else
+    echo "跳过XML格式检查 (xmllint未安装)"
+fi
+
+echo "4. 重新下载依赖..."
+mvn dependency:resolve 2>&1 | tail -5
+
+echo "5. 编译测试..."
+mvn compile 2>&1 | tail -5
+
+echo -e "\n✅ POM.xml修复完成！"
+echo "现在可以运行: mvn spring-boot:run"
